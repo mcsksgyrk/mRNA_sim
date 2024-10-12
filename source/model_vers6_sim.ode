@@ -1,0 +1,42 @@
+init NFKBA=0.01601, BEC1A=0.03322, CARD9=0.47619, GPR35=0.19608, INAVA=0.90909, APEH=0.47619, GPR18=0.19608, GPR65=0.32258, PARK7=0.32258 
+
+NFKBA' = (kanf + kanf'*GPR1 + kanf"*GPR2)*(NFKBT-NFKBA)/(Jnfk + NFKBT-NFKBA) - (kinf + kinf'*GPR3 + kinf"*BEC1A)*NFKBA/(Jnfk + NFKBA)
+
+BEC1A' = (kabc + kabc'*GPR2 + kabc"*GPR3)*(BEC1T-BEC1A)/(Jbec + BEC1T-BEC1A) - (kibc + kibc'*GPR1 + kibc"*NFKBA)*BEC1A/(Jbec + BEC1A)
+
+#CARD9' = kacd9*(CARD9T - CARD9) - (kicd9 + kicd91*mir6803 + kicd92*mir486)*CARD9
+CARD9' = kacd9*(CARD9T - CARD9) - (kicd9 + card9_mir6803*mir6803 + card9_mir486*mir486)*CARD9
+
+GPR35' = kagr35*(GPR35T - GPR35) - (kigr35 + kigr351*mir6803 + kigr352*mir128 + kigr353*mir92 + kigr354*mir125)*GPR35
+ 
+INAVA' = kaiaa*(INAVAT - INAVA) - (kiiaa + kiiaaa1*mir504 + kiiaa2*mir146b + kiiaa3*mir125)*INAVA
+
+APEH' = kaaph*(APEHT - APEH) - (kiaph + kiaph1*mir504)*APEH
+
+GPR18' = kagr18*(GPR18T - GPR18) - (kigr18 + kigr181*mir885 + kigr182*mir146a + kigr183*mir92 + kigr184*mir125 + kigr185*mir504 + kigr186*mir486)*GPR18
+
+GPR65' = kagr65*(GPR65T - GPR65) - (kagr65 + kigr65 + kigr651*mir128)*GPR65
+
+PARK7' = kapk7*(PARK7T - PARK7) - (kipk7 + kipk71*mir486 + kipk72*mir339)*PARK7
+
+GPR1 = CARD9
+
+GPR2 = GPR35 + INAVA + APEH 
+
+GPR3 = GPR18 + GPR65 + PARK7
+
+# stress esetén:
+# kanf=1.5 kanf'=1, kanf"=1, kabc=0.1, kabc'=2, kabc"=0.1
+
+p mir339=1, mir486=1, mir6803=1, mir128=1, mir92=1, mir885=1, mir146a=1, mir125=1, mir504=1, mir146b=1
+p kanf=0.15 kanf'=0.1, kanf"=0.1, kinf=1 kinf'=1, kinf"=15, Jnfk=0.1, NFKBT=1
+p kabc=0.01, kabc'=0.2, kabc"=0.01, kibc=0.5, kibc'=1, kibc"=15, Jbec=0.1, BEC1T=1
+p kacd9=1, kicd9=0.1, kicd91=0, kicd92=1, CARD9T=1
+p kagr35=1, kigr35=0.1, kigr351=1, kigr352=1, kigr353=1, kigr354=1, GPR35T=1
+p kaiaa=1, kiiaa=0.1, kiiaaa1=0, kiiaa2=0, kiiaa3=0, INAVAT=1
+p kaaph=1, kiaph=0.1, kiaph1=1, APEHT=1 
+p kagr18=1, kigr18=0.1, kigr181=0, kigr182=1, kigr183=1, kigr184=1, kigr185=0, kigr186=1, GPR18T=1
+p kagr65=1, kigr65=0.1, kigr651=1, GPR65T=1
+p kapk7=1, kipk7=0.1, kipk71=1, kipk72=1, PARK7T=1
+
+done

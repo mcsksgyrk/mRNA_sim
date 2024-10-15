@@ -32,6 +32,20 @@ for p in patients
     end
     push!(param_sets,p=>p_params)
 end
+
+# col name kokanyolas
+field_names = fieldnames(rnaParamValues)
+col_names = [i for i in field_names]
+#######################
+patient_configs = DataFrame([[] for _ = col_names], col_names)
+function struct_to_df(s, fields)
+    return [getfield(s, field) for field in fields]
+end
+for (key, value) in param_sets
+    push!(patient_configs, struct_to_df(value, field_names))
+end
+patient_configs.ID .= keys(param_sets)
+CSV.write("patient_configs.csv", patient_configs)
 #########################################
 u0 =[0.01601;
     0.03322;

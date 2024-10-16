@@ -60,9 +60,11 @@ for (key, value) in param_sets
     sol = solve(prob, Rosenbrock23())
     push!(stress_results, make_df_row(sol,key))
 end
-maximum.(eachcol(stress_results))
-minimum.(eachcol(stress_results))
-maximum.(eachcol(basal_results))
+
+using CSV
+
+CSV.write("basal_results.csv", basal_results)
+CSV.write("stress_results.csv", stress_results)
 #plot(sol.t,sol[1,:], ylim=(0, 1), label="NFKB")
 #plot!(sol.t,sol[2,:], ylim=(0, 1), label="BEC1")
 #sol.t
